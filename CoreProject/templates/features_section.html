@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features | Real-Time Sign Language Translator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #001D3D, #003566);
+      color: #fff;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 20px 20px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: #FFD60A;
+    }
+
+    header p {
+      color: #e0e0e0;
+      font-size: 1.1rem;
+    }
+
+    .features-section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 40px 60px;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .feature-card i {
+      font-size: 2rem;
+      color: #FFD60A;
+      margin-bottom: 15px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      color: #d0d0d0;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .features-section {
+        padding: 30px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Project Features</h1>
+    <p>Explore the key functionalities that make our Real-Time Sign Language Translator intelligent and interactive.</p>
+  </header>
+
+  <section class="features-section">
+    <div class="feature-card">
+      <i class="fa-solid fa-camera"></i>
+      <h3>Real-Time Gesture Detection</h3>
+      <p>Uses webcam with Mediapipe & OpenCV to capture hand gestures in real time.</p>
+    </div>
+
+    <div class="feature-card">
+      <i class="fa-solid fa-hand-peace"></i>
+      <h3>Static & Dynamic Recognition</h3>
+      <p>Supports both static alphabet signs and dynamic gesture sequences.</p>
+    </div>
+
+    <div class="feature-card">
+      <i class="fa-solid fa-font"></i>
+      <h3>Text Translation</h3>
+      <p>Instantly converts gestures into readable text on screen.</p>
+    </div>
+
+    <div class="feature-card">
+      <i class="fa-solid fa-volume-high"></i>
+      <h3>Speech Output</h3>
+      <p>Converts the translated text into voice output for easier communication.</p>
+    </div>
+
+    <div class="feature-card">
+      <i class="fa-solid fa-database"></i>
+      <h3>Custom Dataset Training</h3>
+      <p>Lets users train new gestures to improve and expand model accuracy.</p>
+    </div>
+
+    <div class="feature-card">
+      <i class="fa-solid fa-language"></i>
+      <h3>Multi-Language Support</h3>
+      <p>Translates recognized text into various languages like English, Hindi, etc.</p>
+    </div>
+
+    <div class="feature-card">
+      <i class="fa-solid fa-chart-line"></i>
+      <h3>Accuracy Optimization</h3>
+      <p>Hybrid CNN + LSTM model enhances accuracy and reduces error rates.</p>
+    </div>
+
+    <div class="feature-card">
+      <i class="fa-solid fa-eye"></i>
+      <h3>Live Prediction Visualization</h3>
+      <p>Shows keypoints, gesture outlines, and prediction confidence live.</p>
+    </div>
+
+    <div class="feature-card">
+      <i class="fa-solid fa-desktop"></i>
+      <h3>Cross-Platform Compatibility</h3>
+      <p>Works seamlessly on Windows, Linux, and macOS platforms.</p>
+    </div>
+
+    <div class="feature-card">
+      <i class="fa-solid fa-wifi-slash"></i>
+      <h3>Offline Mode (Future)</h3>
+      <p>Once the model is loaded, can run without internet connectivity.</p>
+    </div>
+  </section>
+</body>
+</html>
+

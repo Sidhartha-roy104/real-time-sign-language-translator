@@ -1,0 +1,31 @@
+# Python environments
+.venv/
+venv/
+**/.venv/
+**/venv/
+
+# Python generated files
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and local runtime output
+*.log
+*.tmp
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+**/.git.backup/
+
+# Local archives and captured test media
+Project (Programs).zip
+CoreProject/test.mp4

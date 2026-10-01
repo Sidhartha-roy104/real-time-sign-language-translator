@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Video Translate</title>
+
+    <!-- external css kept for project styles -->
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/index.css">
+    <link rel="icon" href="../static/img/favicon_1.ico">
+
+    <!-- inline layout styles to match requested design -->
+    <style>
+        :root{
+            --card-radius:18px;
+            --shadow: 0 12px 30px rgba(6,21,46,0.10);
+            --accent:#09b5ff;
+            --pred-bg:#332a66;
+            --pred-text:#58d0c6;
+            --page-bg:#fbfdff;
+        }
+        html,body{height:100%;margin:0;font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial;}
+        body{
+            background: var(--page-bg);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:28px;
+        }
+
+        /* outer rounded panel with decorative border */
+        .panel{
+            width:100%;
+            max-width:1260px;
+            border-radius:26px;
+            padding:30px;
+            background:linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,255,0.98));
+            box-shadow: 0 10px 30px rgba(8,32,66,0.07);
+            border: 4px solid rgba(5,180,255,0.12);
+            position:relative;
+            overflow:hidden;
+        }
+
+        /* optional decorative image (replace path as needed) */
+        .panel::after{
+            content:"";
+            position:absolute;
+            right:-10%;
+            top:-8%;
+            width:420px;
+            height:420px;
+            background-image: url('file:///C:/Users/siddh/OneDrive/Pictures/Screenshots/Screenshot 2025-10-25 102226.png');
+            background-size:cover;
+            background-position:center;
+            opacity:0.08;
+            filter:blur(10px);
+            pointer-events:none;
+        }
+        /* If you prefer to serve the image from static folder:
+           replace the URL above with "{{ url_for('static', filename='img/yourfile.png') }}" in Jinja template. */
+
+        .row{
+            display:flex;
+            gap:28px;
+            align-items:flex-start;
+            justify-content:space-between;
+            flex-wrap:wrap;
+        }
+
+        .col-video{
+            flex: 2 1 620px;
+            background: #fff;
+            border-radius:var(--card-radius);
+            padding:18px;
+            box-shadow:var(--shadow);
+            min-width:320px;
+        }
+        .col-pred{
+            flex: 1 1 420px;
+            background: transparent;
+            min-width:300px;
+            display:flex;
+            flex-direction:column;
+            gap:18px;
+        }
+
+        .section-title{
+            text-align:center;
+            font-size:28px;
+            color:#233142;
+            margin:6px 0 12px;
+            font-weight:700;
+        }
+
+        .video-wrap{
+            width:100%;
+            border-radius:14px;
+            overflow:hidden;
+            background:#000;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:8px;
+        }
+        .video-wrap img{
+            width:100%;
+            height:420px;
+            object-fit:cover;
+            display:block;
+            border-radius:10px;
+        }
+
+        .pred-card{
+            background:var(--pred-bg);
+            color:white;
+            border-radius:18px;
+            padding:28px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            min-height:320px;
+            box-shadow: var(--shadow);
+        }
+
+        .pred-text{
+            color:var(--pred-text);
+            font-size:64px;
+            font-weight:700;
+            letter-spacing:1px;
+            text-align:center;
+        }
+
+        .controls{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:14px;
+            margin-top:18px;
+        }
+
+        .lang-select{
+            background:rgba(255,255,255,0.96);
+            padding:8px 10px;
+            border-radius:10px;
+            box-shadow:0 6px 18px rgba(6,21,46,0.06);
+        }
+
+        .btn-stop{
+            background: linear-gradient(90deg,#06b4ff,#2bb3ff 60%);
+            color:#fff;
+            padding:10px 22px;
+            border-radius:26px;
+            text-decoration:none;
+            font-weight:700;
+            box-shadow: 0 8px 20px rgba(8,32,66,0.12);
+        }
+
+        .note{
+            text-align:center;
+            color:#5b6b7a;
+            margin-top:18px;
+            font-size:14px;
+        }
+
+        @media (max-width:980px){
+            .video-wrap img{height:320px;}
+            .pred-text{font-size:44px;}
+        }
+        @media (max-width:720px){
+            .row{flex-direction:column;}
+            .video-wrap img{height:260px;}
+            .pred-card{min-height:180px;padding:16px;}
+            .pred-text{font-size:32px;}
+        }
+    </style>
+</head>
+<body>
+<div class="panel">
+    <div class="row">
+        <div class="col-video">
+            <div class="section-title">Video Output</div>
+            <div class="video-wrap">
+                <!-- live stream -->
+                <img src="{{ url_for('video') }}" alt="Live video stream">
+            </div>
+        </div>
+
+        <div class="col-pred">
+            <div class="section-title" style="text-align:left;color:#1e1e2f;">Predicted Text</div>
+
+            <div class="pred-card">
+                <div class="pred-text"><span id="txt">-</span></div>
+            </div>
+
+            <div class="controls">
+                <div class="lang-select">
+                    <label style="font-weight:600;margin-right:8px;color:#0f1724;">Language</label>
+                    <select id="lang" onchange="updateLanguage()" style="padding:6px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);">
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                        <option value="te">Telugu</option>
+                        <option value="ta">Tamil</option>
+                    </select>
+                </div>
+
+                <!-- changed: use Flask url_for to hit the /choice route -->
+                <a href="{{ url_for('choice') }}" class="btn-stop" onclick="try{server.off_rec();}catch(e){}">STOP TRANSLATE</a>
+            </div>
+        </div>
+    </div>
+
+    <p class="note">The above program predicts the sign language gesture with the help of a trained CNN model.</p>
+</div>
+
+<!-- polling + language code -->
+<script>
+    function update_label(data){
+        document.getElementById('txt').innerText = data;
+    }
+    setInterval(function(){
+        fetch('/label').then(r=>r.json()).then(d=>update_label(d)).catch(()=>{});
+    },500);
+
+    function updateLanguage(){
+        const lang = document.getElementById('lang').value;
+        fetch('/set_language',{
+            method:'POST',
+            headers:{'Content-Type':'application/x-www-form-urlencoded'},
+            body:'lang='+encodeURIComponent(lang)
+        }).catch(()=>console.warn('Language set failed'));
+    }
+</script>
+</body>
+</html>
